@@ -1,0 +1,109 @@
+using System;
+using System.Collections.Generic;
+
+namespace Oop{
+    class Student{
+            public int studentAge;
+            public string studentFirstName;
+            public string studentLastName;
+            public string studentId;
+            
+            public Student(string studentId, string studentFirstName, string studentLastName, int studentAge){
+                this.studentId = studentId;
+                this.studentFirstName = studentFirstName;
+                this.studentLastName = studentLastName;
+                this.studentAge = studentAge;
+            }
+            public string StudentId{
+                get { return studentId; }
+                set { studentId = value; }
+            }
+            public string StudentFirstName{
+                get { return studentFirstName; }
+                set { studentFirstName = value; }
+            }
+            public string StudentLastName{
+                get { return studentLastName; }
+                set { studentLastName = value; }
+            }
+            public int StudentAge{
+                get { return studentAge; }
+                set { studentAge = value; }
+            }
+    }
+    
+    class MainProg{
+        static void Main(string[] args){
+            string [] studentId = new string[100];
+            string []studentFirstName = new string[100];
+            string [] studentLastName= new string[100];
+            int [] studentAge = new int[100];
+            int choice = 1;
+            int size = 0;
+            
+            do{
+            Console.WriteLine("1 - ENROLL \r\n2 - STUDENT INFO\r\n3 - TERMINATE PROGRAM");
+            Console.WriteLine("Enter your choice: ");
+            choice = Convert.ToInt32(Console.ReadLine());
+                if(choice == 1){
+                    int enrollAnotherStudent = 1;
+                     do{
+                        for(int i = 0; i < 100; i++){
+                            if(enrollAnotherStudent == 1){
+                                Console.WriteLine("Input id[{0}]", size);
+                                studentId[size] = Console.ReadLine();
+                                Console.WriteLine("Input first name[{0}]", size);
+                                studentFirstName[size] = Console.ReadLine();
+                                Console.WriteLine("Input last name[{0}]", size);
+                                studentLastName[size] = Console.ReadLine();
+                                Console.WriteLine("Input age[{0}]", size);
+                                studentAge[size] = Convert.ToInt32(Console.ReadLine());
+                                size++;
+                            }
+                            if(enrollAnotherStudent == 2){
+                                break;
+                            }
+                            Console.WriteLine("1 - YES \r\n2 - NO");
+                            Console.WriteLine("Do you want to enroll another student?");
+                            enrollAnotherStudent = Convert.ToInt32(Console.ReadLine());
+                        }
+                    }while(enrollAnotherStudent == 1);
+                }
+                Student[] s1 = new Student[size];
+                for(int a = 0; a < size; a++){
+                    s1[a] = new Student(studentId[a], studentFirstName[a], studentLastName[a], studentAge[a]);
+                }
+                if (choice == 2){
+                    string searchStudentId ="";
+                    int searchAnotherStudent = 1;
+                    Boolean isInList = false;
+                    do{
+                        if(searchAnotherStudent == 1){
+                            Console.WriteLine("Enter student id: ");
+                            searchStudentId = Console.ReadLine();
+                            for(int i = 0; i < size; i++){
+                                if(s1[i].StudentId ==  searchStudentId){
+                                    Console.WriteLine("{0} , {1} , {2} , {3}", s1[i].StudentId, s1[i].StudentFirstName, s1[i].StudentLastName,s1[i].StudentAge);
+                                    isInList = true;
+                                }
+                            }
+                            if(isInList == false){
+                                Console.WriteLine("Id not found!");
+                            }
+                        }
+                        if(searchAnotherStudent == 2){
+                            break;
+                        }
+                        Console.WriteLine("1 - YES \r\n2 - NO");
+                        Console.WriteLine("Do you want to search another student?");
+                        searchAnotherStudent = Convert.ToInt32(Console.ReadLine());
+                    }while(searchAnotherStudent == 1);
+                }
+                for(int i = 0; i < size; i++){
+                    Console.WriteLine("{0} , {1} , {2} , {3}", s1[i].StudentId, s1[i].StudentFirstName, s1[i].StudentLastName,s1[i].StudentAge);
+                }
+            }while(choice != 3);
+            Console.ReadLine();
+        }
+    }
+}
